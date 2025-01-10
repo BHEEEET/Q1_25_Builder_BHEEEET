@@ -1,0 +1,21 @@
+{
+  "name": "pre-req",
+  "version": "1.0.0",
+  "description": "",
+  "main": "pubkey.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node pubkey.js",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@solana/web3.js": "^1.98.0",
+    "bs58": "^6.0.0",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
