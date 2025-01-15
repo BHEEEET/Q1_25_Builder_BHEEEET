@@ -90,3 +90,8 @@
 - Token Account
   - ATA (Associated Token Account)
 ```
+
+## Coding
+- `createMint()`
+- `getOrCreateAssociatedTokenAcount()`
+- `mintTo()`
