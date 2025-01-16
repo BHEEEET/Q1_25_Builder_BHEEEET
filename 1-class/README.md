@@ -92,6 +92,6 @@
 ```
 
 ## Coding
-- `createMint()`
-- `getOrCreateAssociatedTokenAcount()`
-- `mintTo()`
+- `createMint()` from `@solana/spl-token`
+- `getOrCreateAssociatedTokenAcount()` from `@solana/spl-token`
+- `mintTo()` from `@solana/spl-token`

@@ -52,5 +52,5 @@
 docs: https://developers.metaplex.com/token-metadata/mint 
 
 ## Coding
-- `createMetadataAccountV3()`
-- `transfer()`
+- `createMetadataAccountV3()` from `@metaplex-foundation/mpl-token-metadata`
+- `transfer()` from `@solana/spl-token`
