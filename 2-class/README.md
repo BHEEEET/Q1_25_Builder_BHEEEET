@@ -50,3 +50,7 @@
 - Modular framework javascript, tool for metaplex programs
 
 docs: https://developers.metaplex.com/token-metadata/mint 
+
+## Coding
+- `createMetadataAccountV3()`
+- `transfer()`
