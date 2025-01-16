@@ -10,10 +10,10 @@ const commitment: Commitment = "confirmed";
 const connection = new Connection("https://api.devnet.solana.com", commitment);
 
 // Mint address
-const mint = new PublicKey("4NJp9AzfaTkdZCD2DHpouqpg4nTn6QZBtLTQURmyK9SM");
+const mint = new PublicKey("59ZWt7yfcJbD3oVePgxe9PNRX7Zp4KP9Tvb6rK8swbDu");
 
 // Recipient address
-const to = new PublicKey("GaKuQyYqJKNy8nN9Xf6VmYJQXzQDvvUHHc8kTeGQLL3f");
+const to = new PublicKey("BvhV49WPYBbzPu8Fpy8YnPnwhNWLbm9Vmdj2T5bNSotS");
 
 (async () => {
     try {
@@ -24,10 +24,12 @@ const to = new PublicKey("GaKuQyYqJKNy8nN9Xf6VmYJQXzQDvvUHHc8kTeGQLL3f");
         const ataTo = await getOrCreateAssociatedTokenAccount(connection, keypair, mint, to)
 
         // Transfer the new token to the "toTokenAccount" we just created
-        const tx = await transfer(connection, keypair, ataFrom.address, ataTo.address, keypair, 1e6) // 1e6 = 1 tokekn with 6 decimals
+        const tx = await transfer(connection, keypair, ataFrom.address, ataTo.address, keypair, 1) // 1e6 = 1 tokekn with 6 decimals
 
         console.log(`Transaction signature: ${tx}`)
         // 6v38EF64SwdRJJ4d6t98cD3uhnrEXsyHEX5GWy4CaEcfKFbbioR5aJ4pwYSa6QJotDSWC1ACDMYK6obQ7VdAARn
+
+        // NFT Sent to Jeff https://explorer.solana.com/tx/2ALbk2fuSjJQBX4YV6xYxSMU4ivbR6RPacL7r7KySzKQJ5Hh8zjHPwmLSWHKQFneQgaqcGPj5fCVkigFqgtEoNeJ?cluster=devnet
     } catch(e) {
         console.error(`Oops, something went wrong: ${e}`)
     }
