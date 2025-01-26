@@ -1,4 +1,4 @@
-use anchor_lang::prelude::*;
+use anchor_lang::{prelude::*, system_program::{transfer, Transfer}};
 
 declare_id!("G5XrK1ohfcszkjU2JM7WGbAY362U9YiWXYvMoY6NW5KG");
 
@@ -13,6 +13,7 @@ pub mod anchor_vault {
 
 // initialize saving the bumps, so you don't need to use compute to find them again
 #[derive(Accounts)]
+// <'info> is setting the lifetime
 pub struct Initialize<'info> {
     #[account(mut)]
     pub signer: Signer<'info>,
@@ -45,6 +46,43 @@ impl<'info> Initialize<'info>{
     }
 }
 
+#[derive(Accounts)]
+pub struct Deposit<'info>{
+    #[account(mut)]
+    pub user: Signer<'info>,
+
+    #[account(
+        seeds = [b"state", user.key().as_ref()],
+        bump = state.state_bump
+    )]
+    pub state: Account<'info, VaultState>,
+
+    #[account(
+        // mutable because changing state
+        mut,
+        seeds = [b"vault", state.key().as_ref()],
+        bump = state.vault_bump
+    )]
+    pub vault : SystemAccount<'info>,
+
+    pub system_program: Program<'info, System>
+}
+
+impl<'info> Deposit<'info>{
+    pub fn deposit(&mut self, amount: u64) -> Result<()>{
+        // Cross-Program invocation, to interact with the system_program
+        let cpi_program = self.system_program.to_account_info();
+        let cpi_accounts= Transfer {
+            from: self.user.to_account_info(),
+            to: self.vault.to_account_info()
+        };
+
+        let cpi_ctx = CpiContext::new(cpi_program,cpi_accounts);
+
+        transfer(cpi_ctx, amount)
+    }
+}
+
 #[account]
 #[derive(InitSpace)] //calculating space needed with 'InitSpace'
 pub struct VaultState{
@@ -53,3 +91,5 @@ pub struct VaultState{
     // vault state bump, pda our own program
     pub state_bump: u8, // 1 Byte space
 }
+
+//33:44
